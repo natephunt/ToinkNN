@@ -1,6 +1,5 @@
 package com.evo.NEAT;
 
-
 import com.evo.NEAT.config.NEAT_Config;
 
 import java.util.ArrayList;
@@ -15,7 +14,6 @@ public class Species implements Comparable{
     private float topFitness = 0;
     private int staleness =0 ;
     Random rand = new Random();
-
 
     public Species(){
         super();

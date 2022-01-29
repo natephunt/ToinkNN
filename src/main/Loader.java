@@ -1,5 +1,4 @@
-// Nathan's dodge water 
-//loader
+// Nathan's dodge water loader
 
 package main;
 
@@ -36,6 +35,20 @@ public class Loader {
 		TD_Car_7};
 	
 	public static boolean hit(HitBox A, HitBox B) { 
+		
+		int R = (A.r + B.r)/2;
+		
+		int xDist = Math.abs(A.x - B.x);
+		int yDist = Math.abs(A.y - B.y);
+		
+		return xDist < R && yDist < R;
+		
+		
+		
+		
+		
+	}
+	public static boolean hitScuffed(HitBox A, HitBox B) { 
 		
 		int R = (A.r + B.r)/2;
 		

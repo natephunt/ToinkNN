@@ -1,3 +1,8 @@
+/* 
+* all code in main created by nathan h
+* implementation of ai also
+*/
+
 package main;
 
 import java.awt.Graphics;

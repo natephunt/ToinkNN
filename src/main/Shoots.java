@@ -1,3 +1,8 @@
+/* 
+* all code in main created by nathan h (natephunt) with help from tyler j for game making
+* implementation of ai all by nathan
+*/
+
 package main;
 
 //import java.awt.Color;
@@ -63,7 +68,7 @@ public class Shoots {
 		
 		
 	}
-	
+	// used in player vs player game, not implemented in ai yet
 	void home() {
 		if(this.x-enemy.x<0) {
 			this.vx+=(enemy.x-this.x)/1000;
@@ -80,6 +85,7 @@ public class Shoots {
 			//System.out.println("goin up");
 		}
 	}
+	// used in player vs player game, not implemented in ai yet
 	void doot() {
 		this.vx+=Math.random()*2;
 		this.vy+=Math.random()*2;
@@ -107,7 +113,7 @@ public class Shoots {
 		if(time>600||bounces>maxBounces) {
 			
 			this.playie.shooties.remove(this);
-			System.out.println("removed, Still: " + this.playie.shooties.size());
+			//System.out.println("removed, Still: " + this.playie.shooties.size());
 			
 		}
 		
@@ -121,6 +127,7 @@ public class Shoots {
 		
 	}
 	
+	// used in player vs player game, not implemented in ai yet
 	void bounce(){
 		if(this.y>Game.windowHeight-50||this.y<0) {
 			this.vy*=-1;

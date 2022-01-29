@@ -280,12 +280,33 @@ public class Input implements MouseMotionListener, MouseListener, KeyListener {
 			Game.player2.shoot(Game.player);
 			System.out.println("shot 2");
 		}
+		if (e.getKeyCode() == 38 ) {
+			Game.speedoes--;
+			System.out.println("more sped");
+		}
+		if (e.getKeyCode() == 40 ) {
+			Game.speedoes++;
+			System.out.println("LESS sped");
+		}
+		if (e.getKeyCode() == 'r' || e.getKeyCode() == 'R') {
+			Game.random= !Game.random;
+			System.out.println("rando toggled");
+		}
+		if (e.getKeyCode() == 'f' || e.getKeyCode() == 'F') {
+			Game.displayWanted= !Game.displayWanted;
+			System.out.println("display toggled");
+		}
+	
+		if (e.getKeyCode() == 't' || e.getKeyCode() == 'T') {
+			BattleGrounds.targetDummy= !BattleGrounds.targetDummy;
+			System.out.println("Target Toggled");
+		}
 	}
 
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generatded method stub
 		
 		
 		

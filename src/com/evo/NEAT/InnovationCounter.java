@@ -9,6 +9,7 @@ public class InnovationCounter {
 
     public static int newInnovation() {
         innovation++;
+        System.out.println(innovation);
         return innovation;
     }
 }

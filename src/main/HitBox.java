@@ -1,6 +1,6 @@
 /*
  * makes a curular, rectangular, or square hit box
- * 
+ * by nathan + Tyler J
  */
 
 
@@ -16,21 +16,13 @@ public class HitBox {
 	int x, y, w, h, r;
 	
 	public HitBox(char style, int x, int y) {
-		
 		this.style = style;
 		this.x = x;
 		this.y = y;
 		
-		
 		this.w = 0;
 		this.h = 0;
 		this.r = 0;
-		
-		
-		
-		
-		
-		
 		
 	// end of the hitBox constructor	
 	}
@@ -56,7 +48,8 @@ public class HitBox {
 		
 		
 		g.setColor(Color.magenta);
-		g.fillOval(this.x, this.y, this.r, this.r);
+		g.drawOval(this.x, this.y, 4, 4);
+		g.drawOval(this.x - this.r/2, this.y - this.r/2, this.r, this.r);
 		
 	}
 }

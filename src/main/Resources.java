@@ -1,3 +1,7 @@
+/* 
+* This is not made by me
+*/
+
 package main;
 
 import java.awt.image.BufferedImage;

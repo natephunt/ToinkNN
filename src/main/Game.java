@@ -17,9 +17,12 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.StringTokenizer;
 
 import javax.swing.JFrame;
+
+import com.evo.NEAT.Genome;
 
 public class Game {
 
@@ -27,8 +30,8 @@ public class Game {
 	
 	public static DrawWindow drawPanel;
 	
-	public static int windowHeight = 820;
-	public static int windowWidth = 1200;
+	public static int windowHeight = 410;
+	public static int windowWidth = 600;
 
 	public static Car player;
 	public static Car player2;
@@ -36,6 +39,11 @@ public class Game {
 	public static boolean ded = false;
 	
 	public static int fileNumber = 0;
+
+	public static int speedoes = 4;
+	public static boolean random = true;
+	public static boolean display = true;
+	public static boolean displayWanted = true;
 	// 4 make an array list to hold our shoots
 	
 	
@@ -45,56 +53,54 @@ public class Game {
 	// TODO public static Spawner spawn1 = new Spawner();
 
 	
-	private void prepareGUI() {
+	private int prepareGUI() {
+		if(Game.display){
+			//1
+			frame = new JFrame("Toinks");
+			//2
+			//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			//3
+			drawPanel = new DrawWindow();
+			//3a
+			new Input(drawPanel);
+			//4
+			frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
+			//5
+			frame.setResizable(true);
+			//6
+			drawPanel.setFocusable(true);
+			drawPanel.requestFocusInWindow();
+			//7
+			frame.setSize(windowWidth, windowHeight);
+			//8
+			frame.setLocationByPlatform(true);
+			frame.setVisible(true);
+		}
 		
-		//1
-		frame = new JFrame("Toinks");
-		//2
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		//3
-		drawPanel = new DrawWindow();
-		//3a
-		new Input(drawPanel);
-		//4
-		frame.getContentPane().add(BorderLayout.CENTER, drawPanel);
-		//5
-		frame.setResizable(true);
-		//6
-		drawPanel.setFocusable(true);
-		drawPanel.requestFocusInWindow();
-		//7
-		frame.setSize(windowWidth, windowHeight);
-		//8
-		frame.setLocationByPlatform(true);
-		frame.setVisible(true);
-		
-		update();
+		return update();
 		
 	//end of prepare GUI
 	}
 	
-	
-	public static void main(String[] args) {
-		
-
-		
-		
+	public static int fight(Genome car0gene, Genome car1gene) {
 		//initialize the game
-		init();
+		init(car0gene, car1gene);
 		
 		// TODO init and prep
-		new Game().prepareGUI();
+		int winningCar = new Game().prepareGUI();
 	//end of main driver
+		return winningCar;
 	}
+
+
 	
 	
-	
-	
-	public static void init() {
-	
+	public static void init(Genome car0gene, Genome car1gene) {
 		
-		player = new Car(570, 228);
-		player2= new Car(340, 500);
+		
+		player = new Car(windowWidth - 100, windowHeight/2 - 5, car0gene, true);
+		player2= new Car(100, windowHeight/2 + 5, car1gene, !BattleGrounds.targetDummy);
 		player2.color=Color.magenta;
 		
 		ded = false;
@@ -104,12 +110,17 @@ public class Game {
 		//update();
 	}
 	
-	
-	public static void update() {
-		while (true) {
-			
+	public static int update() {
+		int winningCar = 2;
+		int time = 0;
+		//Scanner sc = new Scanner(System.in);
+
+		while (time<2000) {
 			// DONE update Car
+			time++;
+
 			
+
 			windowWidth=frame.getWidth();
 			windowHeight=frame.getHeight();
 			
@@ -128,33 +139,59 @@ public class Game {
 				for (int i = 0; i < player2.shooties.size(); i++) {
 					player2.shooties.get(i).update();
 				}
+			}else{
+				if (player.ded){
+					winningCar = 1;
+				}else if(player2.ded){
+					
+				}else{
+					System.out.println("BEEBOOOBEEBOOO");
+					System.out.println("BEEBOOOBEEBOOO");
+					System.out.println("BEEBOOOBEEBOOO");
+					System.out.println("\nSOMETHING WENT WRONG \n ");
+					System.out.println("BEEBOOOBEEBOOO");
+					System.out.println("BEEBOOOBEEBOOO");
+					System.out.println("BEEBOOOBEEBOOO");
+
+					boolean doots = Math.random()>0.5;
+					if(doots){
+						winningCar = 0;
+					}else{
+						winningCar = 1;
+					}
+
+				}
+				break;
 			}
 			
-			
-			
-			
-			
-			
 			try {
-				Thread.sleep(16);
+				Thread.sleep(speedoes);
 			}catch(Exception e){
 				e.printStackTrace();
 			}
+			if(Game.display){
+				frame.repaint();
+			}
 			
-			
-			
-			frame.repaint();
 		}
+		//String ined = sc.nextLine();
+		//if (ined.equals("F")){
+		//	displayWanted = !displayWanted;
+		//}
+
+		if (Game.display){
+			frame.dispose();
+		}
+		
+		display = displayWanted;
+		return winningCar;
+		
 	//end of the update method
-		
-		
 	}
 	public static void readSave() throws IOException{
-		
 		BufferedReader f;
 		
 		try{
-			
 			f=new BufferedReader(new FileReader ("photo_editor_save.txt"));
 			
 			StringTokenizer st = new StringTokenizer(f.readLine());
@@ -175,10 +212,7 @@ public class Game {
 			System.out.println(">>  ...");
 			savedData();
 			System.out.println(">>  NEW FILE INITIALIZING");
-			
-			
 		}
-		
 	}
 	
 	public static void savedData() {
@@ -196,9 +230,7 @@ public class Game {
 		out.close();
 	}
 	
-	
 	static void reset() {
-
 		Game.player.shooties.clear();
 		Game.player2.shooties.clear();
 		Game.ded=false;
@@ -218,6 +250,4 @@ public class Game {
 		Game.player2.bullets=Game.player2.maxBullets;
 		
 	}
-
-	
 }

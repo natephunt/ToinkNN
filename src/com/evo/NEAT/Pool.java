@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Pool {
-
-
     private ArrayList<Species> species = new ArrayList<>();
     private int generations = 0;
     private float topFitness ;
@@ -21,7 +19,7 @@ public class Pool {
     public ArrayList<Species> getSpecies() {
         return species;
     }
-
+    
     public void initializePool() {
 
         for (int i = 0; i < NEAT_Config.POPULATION; i++) {
